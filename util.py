@@ -14,6 +14,15 @@ def denormalize(point_array, img_shape):
     return point_array
 
 def draw_mask_on_image(image, mask_json, opacity=1):
+    """
+    Function to draw mask on given image.
+    
+    parameters: image - Image loaded in numpy format
+                mask_json - Json containing point co-ordinates and labels
+                opacity - (Optional) Opacity of drawn mask
+
+    Returns image with mask drawn
+    """
     width = image.shape[0]
     height = image.shape[1]
     mask = np.zeros(image.shape, dtype=np.uint8)
@@ -29,6 +38,15 @@ def draw_mask_on_image(image, mask_json, opacity=1):
     
 
 def draw_bb_and_mask_on_image(image, mask_json, opacity=1):  
+    """
+    Function to draw mask and bounding box, along with label name, on given image.
+    
+    parameters: image - Image loaded in numpy format
+                mask_json - Json containing point co-ordinates and labels
+                opacity - (Optional) Opacity of drawn mask
+
+    Returns image with mask and bounding box drawn.
+    """
     width = image.shape[0]
     height = image.shape[1]
     mask = np.zeros(image.shape, dtype=np.uint8)
@@ -58,6 +76,15 @@ def draw_bb_and_mask_on_image(image, mask_json, opacity=1):
 
 
 def draw_mask_on_image_array(image_path, meta_data_json_path, opacity=1):
+    """
+    Function to draw mask and bounding box, with label name, on given array of images..
+    
+    parameters: image_path - Path of images to be drawn on
+                meta_data_json_path - Path of json files containing co-ordinates and labels
+                opacity - (Optional) Opacity of drawn mask
+
+    Returns two lists of images, one with only mask, other with mask and bounding box.
+    """
     n_images = len(os.listdir(image_path))
     figure, ax = plt.subplots(nrows=n_images, ncols=2, figsize=(100,100))   
     
@@ -65,8 +92,10 @@ def draw_mask_on_image_array(image_path, meta_data_json_path, opacity=1):
         img = cv2.imread(image_path + image, -1)
         mask_json = json.load(open(meta_data_json_path + '{}.json'.format(ind+1)))
         
+        # Draw mask on image, return image
         masked_img = draw_mask_on_image(img, mask_json, opacity=opacity)
         
+        # Loading mask json again, as it was altered by above function.
         mask_json = json.load(open(meta_data_json_path + '{}.json'.format(ind+1)))
         bbox_masked_img = draw_bb_and_mask_on_image(img, mask_json, opacity=opacity)
     
