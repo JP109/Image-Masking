@@ -6,5 +6,5 @@ Usage notes:
 2. Anaconda prompt, inside project folder:\
 a. conda create --prefix ./environment-name --file requirements.txt\
 b. conda activate ./environment-name\
-c. conda install -c conda-forge jupyter lab\
+c. conda install -c conda-forge jupyterlab\
 b. jupyter lab
