@@ -1,4 +1,4 @@
-# Assignment
+# Creating image masks and bounding boxes
 Task 1.1: Segmentation and bounding box visualization\
 
 Usage notes:
